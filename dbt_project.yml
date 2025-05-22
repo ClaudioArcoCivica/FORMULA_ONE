@@ -1,8 +1,8 @@
-name: 'formula1'
-version: '1.0.0'
+name: "formula1"
+version: "1.0.0"
 config-version: 2
 
-profile: 'default'
+profile: "default"
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -20,11 +20,11 @@ models:
   formula1:
     # Configuración para staging (silver)
     staging:
-      bronze:  # Solo para modelos que referencian directamente a bronze
-        +materialized: ephemeral  # No se materializan, solo referencias
+      bronze: # Solo para modelos que referencian directamente a bronze
+        +materialized: ephemeral # No se materializan, solo referencias
         +database: ALUMNO3_DEV_BRONZE_DB_F1
         +schema: FORMULA_DB
-      
+
       silver:
         +materialized: table
         +database: ALUMNO3_DEV_SILVER_DB_F1
@@ -33,7 +33,7 @@ models:
           relation: true
           columns: true
 
-    # Configuración para marts (gold)    
+    # Configuración para marts (gold)
     marts:
       +materialized: table
       +database: ALUMNO3_DEV_GOLD_DB_F1
@@ -44,6 +44,6 @@ models:
 
 vars:
   # Variables globales para nombres de bases de datos
-  bronze_database: 'ALUMNO3_DEV_BRONZE_DB_F1'
-  silver_database: 'ALUMNO3_DEV_SILVER_DB_F1'
-  gold_database: 'ALUMNO3_DEV_GOLD_DB_F1'
+  bronze_database: "ALUMNO3_DEV_BRONZE_DB_F1"
+  silver_database: "ALUMNO3_DEV_SILVER_DB_F1"
+  gold_database: "ALUMNO3_DEV_GOLD_DB_F1"

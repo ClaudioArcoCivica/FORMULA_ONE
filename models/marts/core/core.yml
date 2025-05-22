@@ -1,0 +1,230 @@
+version: 2
+
+models:
+  - name: dim_circuits
+    description: "Dimensión de circuitos de F1"
+    columns:
+      - name: circuit_id
+        description: "Identificador único del circuito"
+        tests:
+          - unique
+          - not_null
+      - name: circuit_ref
+        description: "Referencia corta del circuito"
+      - name: circuit_name
+        description: "Nombre del circuito"
+      - name: city
+        description: "Ciudad donde se ubica el circuito"
+      - name: country
+        description: "País del circuito"
+      - name: latitude
+        description: "Latitud del circuito"
+      - name: longitude
+        description: "Longitud del circuito"
+      - name: altitude
+        description: "Altitud del circuito"
+      
+#---------------------------------dim_constructors-----------------------------------------------
+
+  - name: dim_constructors
+    description: "Dimensión de equipos/constructores de F1"
+    columns:
+      - name: constructor_id
+        description: "Identificador único del constructor"
+        tests:
+          - unique
+          - not_null
+      - name: constructor_ref
+        description: "Referencia corta del constructor"
+      - name: constructor_name
+        description: "Nombre del constructor"
+      - name: nationality
+        description: "Nacionalidad del constructor"
+      - name: wikipedia_url
+        description: "Enlace a Wikipedia del constructor"
+
+#------------------------------dim_drivers---------------------------------------------------
+
+  - name: dim_drivers
+    description: "Dimensión de pilotos de F1"
+    columns:
+      - name: driver_id
+        description: "Identificador único del piloto"
+        tests:
+          - unique
+          - not_null
+      - name: driver_ref
+        description: "Referencia corta del piloto"
+      - name: car_number
+        description: "Número del coche"
+      - name: driver_code
+        description: "Código del piloto"
+      - name: first_name
+        description: "Nombre"
+      - name: last_name
+        description: "Apellido"
+      - name: date_of_birth
+        description: "Fecha de nacimiento"
+      - name: nationality
+        description: "Nacionalidad"
+#-----------------------------------------dim_races--------------------------------------------
+  - name: dim_races
+    description: "Dimensión de carreras de F1"
+    columns:
+      - name: race_id
+        description: "Identificador único de la carrera"
+        tests:
+          - unique
+          - not_null
+      - name: season_year
+        description: "Año de la temporada"
+      - name: round_number
+        description: "Número de ronda en la temporada"
+      - name: circuit_id
+        description: "ID del circuito donde se disputa la carrera"
+      - name: race_name
+        description: "Nombre oficial del Gran Premio"
+      - name: race_date
+        description: "Fecha de la carrera"
+      - name: race_time
+        description: "Hora de inicio de la carrera"
+#--------------------------------fact_constructor_standings------------------------------------------
+
+  - name: fact_constructor_standings
+    description: "Hecho de evolución de equipos en el campeonato tras cada carrera, enriquecido con información de dimensiones"
+    columns:
+      - name: constructor_standings_id
+        description: "Identificador único del registro de standings del constructor"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+      - name: constructor_id
+        description: "ID del constructor"
+      - name: points
+        description: "Puntos acumulados por el constructor tras la carrera"
+      - name: position
+        description: "Posición numérica en el campeonato"
+      - name: position_text
+        description: "Posición en texto"
+      - name: wins
+        description: "Victorias acumuladas"
+      - name: constructor_name
+        description: "Nombre del constructor"
+      - name: constructor_nationality
+        description: "Nacionalidad del constructor"
+      - name: season_year
+        description: "Año de la temporada"
+      - name: round_number
+        description: "Número de ronda"
+      - name: race_name
+        description: "Nombre de la carrera"
+      - name: circuit_name
+        description: "Nombre del circuito"
+      - name: circuit_country
+        description: "País del circuito"
+#--------------------------------------fact_driver_standings_enriched---------------------------------------------
+
+  - name: fact_driver_standings_enriched
+    description: "Hecho de evolución de pilotos en el campeonato tras cada carrera, enriquecido con información de dimensiones"
+    columns:
+      - name: driver_standings_id
+        description: "Identificador único del registro de standings del piloto"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+      - name: driver_id
+        description: "ID del piloto"
+      - name: points
+        description: "Puntos acumulados por el piloto tras la carrera"
+      - name: position
+        description: "Posición numérica en el campeonato"
+      - name: position_text
+        description: "Posición en texto"
+      - name: wins
+        description: "Victorias acumuladas"
+      - name: first_name
+        description: "Nombre del piloto"
+      - name: last_name
+        description: "Apellido del piloto"
+      - name: driver_nationality
+        description: "Nacionalidad del piloto"
+      - name: season_year
+        description: "Año de la temporada"
+      - name: round_number
+        description: "Número de ronda"
+      - name: race_name
+        description: "Nombre de la carrera"
+      - name: circuit_name
+        description: "Nombre del circuito"
+      - name: circuit_country
+        description: "País del circuito"
+#---------------------------------------fact_results--------------------------------------------
+  - name: fact_results
+    description: "Hecho principal de resultados de pilotos en cada carrera, enriquecido con información de dimensiones"
+    columns:
+      - name: result_id
+        description: "Identificador único del resultado"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+      - name: driver_id
+        description: "ID del piloto"
+      - name: constructor_id
+        description: "ID del constructor"
+      - name: car_number
+        description: "Número del coche"
+      - name: grid_position
+        description: "Posición de salida"
+      - name: finish_position
+        description: "Posición final"
+      - name: finish_position_text
+        description: "Posición final como texto"
+      - name: finish_position_order
+        description: "Orden de llegada"
+      - name: points
+        description: "Puntos obtenidos"
+      - name: laps_completed
+        description: "Vueltas completadas"
+      - name: race_time
+        description: "Tiempo total de carrera"
+      - name: race_time_ms
+        description: "Tiempo en milisegundos"
+      - name: fastest_lap_number
+        description: "Número de la vuelta más rápida"
+      - name: fastest_lap_rank
+        description: "Ranking de vuelta rápida"
+      - name: fastest_lap_time
+        description: "Tiempo de la vuelta más rápida"
+      - name: fastest_lap_speed
+        description: "Velocidad de la vuelta más rápida"
+      - name: first_name
+        description: "Nombre del piloto"
+      - name: last_name
+        description: "Apellido del piloto"
+      - name: driver_nationality
+        description: "Nacionalidad del piloto"
+      - name: constructor_name
+        description: "Nombre del constructor"
+      - name: constructor_nationality
+        description: "Nacionalidad del constructor"
+      - name: season_year
+        description: "Año de la temporada"
+      - name: round_number
+        description: "Número de ronda"
+      - name: race_name
+        description: "Nombre de la carrera"
+      - name: circuit_name
+        description: "Nombre del circuito"
+      - name: circuit_country
+        description: "País del circuito"
+
+      
+
+     
+
