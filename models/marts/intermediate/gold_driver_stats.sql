@@ -1,5 +1,5 @@
 {{ config(
-    materialized='table',
+    materialized='view',
     unique_key='driver_stat_id'
 ) }}
 

@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
 WITH pilotos_circuitos AS (
     SELECT
@@ -14,7 +14,7 @@ WITH pilotos_circuitos AS (
         MIN(r.finish_position) AS mejor_posicion
     FROM {{ ref('fct_results') }} r
     --JOIN {{ ref('dim_drivers') }} d ON r.driver_id = d.driver_id
-    -- ¡No necesitas hacer JOIN con dim_races o dim_circuits aquí!
+    
     GROUP BY 1,2,3,4
 )
 

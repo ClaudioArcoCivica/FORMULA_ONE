@@ -1,3 +1,4 @@
+{{ config(materialized='table') }}
 SELECT
     equipo,
     SUM(victorias) AS victorias_totales,
