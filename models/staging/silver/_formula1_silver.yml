@@ -1,0 +1,299 @@
+version: 2
+
+models:
+  - name: silver_circuits
+    description: "Circuitos de F1 limpios y normalizados"
+    columns:
+      - name: circuit_id
+        description: "Identificador único del circuito"
+        tests:
+          - unique
+          - not_null
+      - name: circuit_ref
+        description: "Referencia corta del circuito"
+        tests:
+          - not_null
+      - name: circuit_name
+        description: "Nombre del circuito"
+        tests:
+          - not_null
+      - name: city
+        description: "Ciudad del circuito"
+        tests:
+          - not_null
+      - name: country
+        description: "País del circuito"
+        tests:
+          - not_null
+      - name: latitude
+        description: "Latitud del circuito (precisión 6 decimales)"
+        tests:
+          - not_null
+      - name: longitude
+        description: "Longitud del circuito (precisión 6 decimales)"
+        tests:
+          - not_null
+      - name: altitude
+        description: "Altitud del circuito (puede ser NULL)"
+
+#----------------------------------silver_circuits-------------------------------------------------
+
+
+  - name: silver_constructor_results
+    description: "Resultados de constructores por carrera, datos limpios y tipados"
+    columns:
+      - name: constructor_results_id
+        description: "Identificador único del resultado del constructor"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "ID del constructor"
+        tests:
+          - not_null
+      - name: points
+        description: "Puntos obtenidos por el constructor en esa carrera"
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "points >= 0"
+
+
+#---------------------------------------------silver_constructor_standings-----------------------------------------------
+
+  - name: silver_constructor_standings
+    description: "Clasificación de constructores tras cada carrera, datos limpios y tipados"
+    columns:
+      - name: constructor_standings_id
+        description: "Identificador único de la fila de standings"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "ID del constructor"
+        tests:
+          - not_null
+      - name: points
+        description: "Puntos acumulados por el constructor hasta esa carrera"
+      - name: position
+        description: "Posición numérica en el campeonato"
+      - name: position_text
+        description: "Posición en texto (puede tener valores especiales)"
+      - name: wins
+        description: "Número de victorias acumuladas hasta esa carrera"
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "points >= 0"
+      - dbt_utils.expression_is_true:
+          expression: "wins >= 0"
+        
+#----------------------------silver_constructors----------------------------------------
+
+  - name: silver_constructors
+    description: "Constructores de F1 limpios y tipados"
+    columns:
+      - name: constructor_id
+        description: "Identificador único del constructor"
+        tests:
+          - unique
+          - not_null
+      - name: constructor_ref
+        description: "Referencia corta del constructor"
+        tests:
+          - not_null
+      - name: constructor_name
+        description: "Nombre del constructor"
+        tests:
+          - not_null
+      - name: nationality
+        description: "Nacionalidad del constructor"
+        tests:
+          - not_null
+#-----------------------------------------silver_driver_standings-------------------------------------------
+
+  - name: silver_driver_standings
+    description: "Clasificación de pilotos tras cada carrera, datos limpios y tipados"
+    columns:
+      - name: driver_standings_id
+        description: "Identificador único de la fila de standings"
+        tests: [unique, not_null]
+      - name: race_id
+        description: "ID de la carrera"
+        tests: [not_null]
+      - name: driver_id
+        description: "ID del piloto"
+        tests: [not_null]
+      - name: points
+        description: "Puntos acumulados por el piloto hasta esa carrera"
+      - name: position
+        description: "Posición numérica en el campeonato"
+      - name: position_text
+        description: "Posición en texto (puede tener valores especiales)"
+      - name: wins
+        description: "Número de victorias acumuladas hasta esa carrera"
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "points >= 0"
+      - dbt_utils.expression_is_true:
+          expression: "wins >= 0"
+#-----------------------------------------silver_drivers---------------------------------------------
+  - name: silver_drivers
+    description: "Pilotos de F1 limpios y tipados"
+    columns:
+      - name: driver_id
+        description: "Identificador único del piloto"
+        tests:
+          - unique
+          - not_null
+      - name: driver_ref
+        description: "Referencia corta del piloto"
+        tests:
+          - not_null
+      - name: car_number
+        description: "Número del coche (puede ser NULL)"
+      - name: driver_code
+        description: "Código de tres letras del piloto (puede ser NULL)"
+      - name: first_name
+        description: "Nombre del piloto"
+        tests:
+          - not_null
+      - name: last_name
+        description: "Apellido del piloto"
+        tests:
+          - not_null
+      - name: date_of_birth
+        description: "Fecha de nacimiento"
+        tests:
+          - not_null
+      - name: nationality
+        description: "Nacionalidad"
+        tests:
+          - not_null
+      - name: wikipedia_url
+        description: "Enlace a Wikipedia del piloto"
+#-----------------------------------ilver_qualifying------------------------------------------------
+  - name: silver_qualifying
+    description: "Resultados limpios de clasificación (qualifying) F1, sin tiempos de sesión"
+    columns:
+      - name: qualify_id
+        description: "Identificador único de la clasificación"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+        tests:
+          - not_null
+      - name: driver_id
+        description: "ID del piloto"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "ID del constructor"
+        tests:
+          - not_null
+      - name: car_number
+        description: "Número del coche"
+      - name: qualifying_position
+        description: "Posición final en clasificación"
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "qualifying_position IS NULL OR qualifying_position > 0"
+
+#-------------------------------------silver_races------------------------------------------------
+
+  - name: silver_races
+    description: "Calendario de carreras de F1, limpio y tipado"
+    columns:
+      - name: race_id
+        description: "Identificador único de la carrera"
+        tests:
+          - unique
+          - not_null
+      - name: season_year
+        description: "Año de la temporada"
+        tests:
+          - not_null
+      - name: round_number
+        description: "Número de ronda en la temporada"
+        tests:
+          - not_null
+      - name: circuit_id
+        description: "ID del circuito"
+        tests:
+          - not_null
+      - name: race_name
+        description: "Nombre oficial del Gran Premio"
+        tests:
+          - not_null
+      - name: race_date
+        description: "Fecha de la carrera"
+        tests:
+          - not_null
+      - name: race_time
+        description: "Hora de inicio de la carrera (puede ser NULL)"
+
+#-------------------------------------silver_results-----------------------------------------
+
+  - name: silver_results
+    description: "Resultados detallados de cada piloto en cada carrera, limpios y tipados"
+    columns:
+      - name: result_id
+        description: "Identificador único del resultado"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+        tests:
+          - not_null
+      - name: driver_id
+        description: "ID del piloto"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "ID del constructor"
+        tests:
+          - not_null
+      - name: car_number
+        description: "Número del coche"
+      - name: grid_position
+        description: "Posición de salida en la parrilla"
+      - name: finish_position
+        description: "Posición final en carrera"
+      - name: finish_position_text
+        description: "Posición final como texto (puede incluir 'R', 'D', etc.)"
+      - name: finish_position_order
+        description: "Orden de llegada (numérico, sin tener en cuenta abandonos especiales)"
+      - name: points
+        description: "Puntos obtenidos en la carrera"
+      - name: laps_completed
+        description: "Vueltas completadas"
+      - name: race_time
+        description: "Tiempo total de carrera (formato texto)"
+      - name: race_time_ms
+        description: "Tiempo total de carrera en milisegundos"
+      - name: fastest_lap_number
+        description: "Número de la vuelta más rápida"
+      - name: fastest_lap_rank
+        description: "Ranking de la vuelta más rápida"
+      - name: fastest_lap_time
+        description: "Tiempo de la vuelta más rápida (formato texto)"
+      - name: fastest_lap_speed
+        description: "Velocidad de la vuelta más rápida"
+      - name: status_id
+        description: "ID del estado final del piloto en la carrera"
+
+
+
+      
+
+
+

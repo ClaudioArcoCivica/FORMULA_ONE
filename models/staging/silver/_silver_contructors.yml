@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: silver_constructors
+    description: "Constructores de F1 limpios y tipados"
+    columns:
+      - name: constructor_id
+        description: "Identificador único del constructor"
+        tests:
+          - unique
+          - not_null
+      - name: constructor_ref
+        description: "Referencia corta del constructor"
+        tests:
+          - not_null
+      - name: constructor_name
+        description: "Nombre del constructor"
+        tests:
+          - not_null
+      - name: nationality
+        description: "Nacionalidad del constructor"
+        tests:
+          - not_null
+      

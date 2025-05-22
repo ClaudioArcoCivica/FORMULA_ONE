@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: silver_results
+    description: "Resultados detallados de cada piloto en cada carrera, limpios y tipados"
+    columns:
+      - name: result_id
+        description: "Identificador único del resultado"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+        tests:
+          - not_null
+      - name: driver_id
+        description: "ID del piloto"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "ID del constructor"
+        tests:
+          - not_null
+      - name: car_number
+        description: "Número del coche"
+      - name: grid_position
+        description: "Posición de salida en la parrilla"
+      - name: finish_position
+        description: "Posición final en carrera"
+      - name: finish_position_text
+        description: "Posición final como texto (puede incluir 'R', 'D', etc.)"
+      - name: finish_position_order
+        description: "Orden de llegada (numérico, sin tener en cuenta abandonos especiales)"
+      - name: points
+        description: "Puntos obtenidos en la carrera"
+      - name: laps_completed
+        description: "Vueltas completadas"
+      - name: race_time
+        description: "Tiempo total de carrera (formato texto)"
+      - name: race_time_ms
+        description: "Tiempo total de carrera en milisegundos"
+      - name: fastest_lap_number
+        description: "Número de la vuelta más rápida"
+      - name: fastest_lap_rank
+        description: "Ranking de la vuelta más rápida"
+      - name: fastest_lap_time
+        description: "Tiempo de la vuelta más rápida (formato texto)"
+      - name: fastest_lap_speed
+        description: "Velocidad de la vuelta más rápida"
+      - name: status_id
+        description: "ID del estado final del piloto en la carrera"

@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: dim_constructors
+    description: "Dimensión de equipos/constructores de F1"
+    columns:
+      - name: constructor_id
+        description: "Identificador único del constructor"
+        tests:
+          - unique
+          - not_null
+      - name: constructor_ref
+        description: "Referencia corta del constructor"
+      - name: constructor_name
+        description: "Nombre del constructor"
+      - name: nationality
+        description: "Nacionalidad del constructor"
+      - name: wikipedia_url
+        description: "Enlace a Wikipedia del constructor"

@@ -1,0 +1,187 @@
+sources:
+  - name: formula1_bronze
+    database: alumno3_dev_bronze_db_f1
+    schema: formula_db 
+    
+    tables:
+      - name: circuits
+        columns:
+          - name: circuitid
+            data_type: number
+          - name: circuitref
+            data_type: varchar
+          - name: name
+            data_type: varchar
+          - name: location
+            data_type: varchar
+          - name: country
+            data_type: varchar
+          - name: lat
+            data_type: number
+          - name: lng
+            data_type: number
+          - name: alt
+            data_type: number
+          - name: url
+            data_type: varchar
+
+      - name: constructor_results
+        columns:
+          - name: constructorresultsid
+            data_type: number
+          - name: raceid
+            data_type: number
+          - name: constructorid
+            data_type: number
+          - name: points
+            data_type: number
+          - name: status
+            data_type: varchar
+
+      - name: constructors
+        columns:
+          - name: constructorid
+            data_type: number
+          - name: constructorref
+            data_type: varchar
+          - name: name
+            data_type: varchar
+          - name: nationality
+            data_type: varchar
+          - name: url
+            data_type: varchar
+
+      - name: constructors_standings
+        columns:
+          - name: constructorstandingsid
+            data_type: number
+          - name: raceid
+            data_type: number
+          - name: constructorid
+            data_type: number
+          - name: points
+            data_type: number
+          - name: position
+            data_type: number
+          - name: positiontext
+            data_type: varchar
+          - name: wins
+            data_type: number
+
+      - name: driver_standings
+        columns:
+          - name: driverstandingsid
+            data_type: number
+          - name: raceid
+            data_type: number
+          - name: driverid
+            data_type: number
+          - name: points
+            data_type: number
+          - name: position
+            data_type: number
+          - name: positiontext
+            data_type: varchar
+          - name: wins
+            data_type: number
+
+      - name: drivers
+        columns:
+          - name: driverid
+            data_type: number
+          - name: driverref
+            data_type: varchar
+          - name: number
+            data_type: number
+          - name: code
+            data_type: varchar
+          - name: forename
+            data_type: varchar
+          - name: surname
+            data_type: varchar
+          - name: dob
+            data_type: date
+          - name: nationality
+            data_type: varchar
+          - name: url
+            data_type: varchar
+
+      - name: races
+        columns:
+          - name: raceid
+            data_type: number
+          - name: year
+            data_type: number
+          - name: round
+            data_type: number
+          - name: circuitid
+            data_type: number
+          - name: name
+            data_type: varchar
+          - name: date
+            data_type: date
+          - name: time
+            data_type: time
+          - name: url
+            data_type: varchar
+          - name: fp1_date
+            data_type: date
+          - name: fp1_time
+            data_type: time
+          - name: fp2_date
+            data_type: date
+          - name: fp2_time
+            data_type: time
+          - name: fp3_date
+            data_type: date
+          - name: fp3_time
+            data_type: time
+          - name: quali_date
+            data_type: date
+          - name: quali_time
+            data_type: time
+          - name: sprint_date
+            data_type: date
+          - name: sprint_time
+            data_type: time
+      
+      - name: results
+        columns:
+          - name: resultid
+            data_type: number
+          - name: raceid
+            data_type: number
+          - name: driverid
+            data_type: number
+          - name: constructorid
+            data_type: number
+          - name: number
+            data_type: number
+          - name: grid
+            data_type: number
+          - name: position
+            data_type: number
+          - name: positiontext
+            data_type: varchar
+          - name: positionorder
+            data_type: number
+          - name: points
+            data_type: number
+          - name: laps
+            data_type: number
+          - name: time
+            data_type: varchar
+          - name: milliseconds
+            data_type: number
+          - name: fastestlap
+            data_type: number
+          - name: rank
+            data_type: number
+          - name: fastestlaptime
+            data_type: varchar
+          - name: fastestlapspeed
+            data_type: number
+          - name: statusid
+            data_type: number
+      - name: qualifying
+      

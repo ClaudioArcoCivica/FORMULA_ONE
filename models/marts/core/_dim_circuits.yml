@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_circuits
+    description: "Dimensión de circuitos de F1"
+    columns:
+      - name: circuit_id
+        description: "Identificador único del circuito"
+        tests:
+          - unique
+          - not_null
+      - name: circuit_ref
+        description: "Referencia corta del circuito"
+      - name: circuit_name
+        description: "Nombre del circuito"
+      - name: city
+        description: "Ciudad donde se ubica el circuito"
+      - name: country
+        description: "País del circuito"
+      - name: latitude
+        description: "Latitud del circuito"
+      - name: longitude
+        description: "Longitud del circuito"
+      - name: altitude
+        description: "Altitud del circuito"
+      

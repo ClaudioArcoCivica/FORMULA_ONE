@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: silver_qualifying
+    description: "Resultados limpios de clasificación (qualifying) F1, sin tiempos de sesión"
+    columns:
+      - name: qualify_id
+        description: "Identificador único de la clasificación"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+        tests:
+          - not_null
+      - name: driver_id
+        description: "ID del piloto"
+        tests:
+          - not_null
+      - name: constructor_id
+        description: "ID del constructor"
+        tests:
+          - not_null
+      - name: car_number
+        description: "Número del coche"
+      - name: qualifying_position
+        description: "Posición final en clasificación"
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "qualifying_position IS NULL OR qualifying_position > 0"

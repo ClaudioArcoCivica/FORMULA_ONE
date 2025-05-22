@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: fact_driver_standings_enriched
+    description: "Hecho de evolución de pilotos en el campeonato tras cada carrera, enriquecido con información de dimensiones"
+    columns:
+      - name: driver_standings_id
+        description: "Identificador único del registro de standings del piloto"
+        tests:
+          - unique
+          - not_null
+      - name: race_id
+        description: "ID de la carrera"
+      - name: driver_id
+        description: "ID del piloto"
+      - name: points
+        description: "Puntos acumulados por el piloto tras la carrera"
+      - name: position
+        description: "Posición numérica en el campeonato"
+      - name: position_text
+        description: "Posición en texto"
+      - name: wins
+        description: "Victorias acumuladas"
+      - name: first_name
+        description: "Nombre del piloto"
+      - name: last_name
+        description: "Apellido del piloto"
+      - name: driver_nationality
+        description: "Nacionalidad del piloto"
+      - name: season_year
+        description: "Año de la temporada"
+      - name: round_number
+        description: "Número de ronda"
+      - name: race_name
+        description: "Nombre de la carrera"
+      - name: circuit_name
+        description: "Nombre del circuito"
+      - name: circuit_country
+        description: "País del circuito"

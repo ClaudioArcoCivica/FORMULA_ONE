@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: silver_races
+    description: "Calendario de carreras de F1, limpio y tipado"
+    columns:
+      - name: race_id
+        description: "Identificador único de la carrera"
+        tests:
+          - unique
+          - not_null
+      - name: season_year
+        description: "Año de la temporada"
+        tests:
+          - not_null
+      - name: round_number
+        description: "Número de ronda en la temporada"
+        tests:
+          - not_null
+      - name: circuit_id
+        description: "ID del circuito"
+        tests:
+          - not_null
+      - name: race_name
+        description: "Nombre oficial del Gran Premio"
+        tests:
+          - not_null
+      - name: race_date
+        description: "Fecha de la carrera"
+        tests:
+          - not_null
+      - name: race_time
+        description: "Hora de inicio de la carrera (puede ser NULL)"
+      

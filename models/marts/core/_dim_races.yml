@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: dim_races
+    description: "Dimensión de carreras de F1"
+    columns:
+      - name: race_id
+        description: "Identificador único de la carrera"
+        tests:
+          - unique
+          - not_null
+      - name: season_year
+        description: "Año de la temporada"
+      - name: round_number
+        description: "Número de ronda en la temporada"
+      - name: circuit_id
+        description: "ID del circuito donde se disputa la carrera"
+      - name: race_name
+        description: "Nombre oficial del Gran Premio"
+      - name: race_date
+        description: "Fecha de la carrera"
+      - name: race_time
+        description: "Hora de inicio de la carrera"
+      
